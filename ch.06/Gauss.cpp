@@ -28,15 +28,9 @@ int main() {
             for(int j=k+1; j<n; j++)
                 A[i][j] -= A[k][j] * A[i][k] / A[k][k];
             b[i] -= b[k] * A[i][k] / A[k][k];
-            A[i][k] /= -A[k][k];
+            A[i][k] = 0;
         }
     }
-
-    // for(int i=0; i<n; i++) {
-    //     for(int j=0; j<n; j++)
-    //         cout << A[i][j] << " ";
-    //     cout << b[i] << endl;
-    // }
 
     //进行回代
     for(int i=n-1; i>=0; i--) {
