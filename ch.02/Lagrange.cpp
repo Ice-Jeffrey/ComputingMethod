@@ -14,21 +14,29 @@ int main() {
     cout << "请按照x, y的顺序依次输入这些点：" << endl;
     for(int i=0; i<n; i++) 
         cin >> a[i][0] >> a[i][1];
-    cout << "请输入需要预测的点的自变量的值：";
-    cin >> x;
-    
-    //进行插值法迭代
-    for(int i=0; i<n; i++) {
-        float fi = 1;
-        for(int j=0; j<n; j++) {
-            if(i == j) continue;
-            fi *= (x - a[j][0]) * 1.0 / (a[i][0] - a[j][0]);
+
+    while(true) {
+        cout << "请输入需要预测的点的自变量的值：";
+        cin >> x;
+        
+        //进行插值法迭代
+        for(int i=0; i<n; i++) {
+            float fi = 1;
+            for(int j=0; j<n; j++) {
+                if(i == j) continue;
+                fi *= (x - a[j][0]) * 1.0 / (a[i][0] - a[j][0]);
+            }
+            b[i] = fi;
         }
-        b[i] = fi;
+        float result = 0;
+        for(int i=0; i<n; i++)
+            result += b[i] * a[i][1];
+        cout << "该点y的预测值为：" << result << endl;
     }
-    float result = 0;
-    for(int i=0; i<n; i++)
-        result += b[i] * a[i][1];
-    cout << "该点y的预测值为：" << result << endl;
+    
+    delete[] b;
+    for(int i=0; i<n; i++) 
+        delete[] a[i];
+    delete[] a;
     return 0;
 }
